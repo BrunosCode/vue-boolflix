@@ -2,8 +2,9 @@
   <div class="c-movies">
     <div v-for="(movie, i) in moviesList" :key="i" 
     class="c-movies__card">
-      <h3>{{movie.title}}</h3>
-      <h5>{{movie.original_title}}</h5>
+      <h3>{{movie.title || movie.name}}</h3>
+      <h5>{{movie.original_title || movie.original_name}}</h5>
+      <img :src="`https://www.countryflags.io/${(movie.original_language == 'en') ? 'us' : movie.original_language }/flat/64.png`">
       <p>Language {{movie.original_language}}</p>
       <p>Vote {{movie.vote_average}}</p>
     </div>
@@ -26,7 +27,7 @@ export default {
   methods: {
     generateMovieList: function() {
       if(this.movieQuery !== "") {
-        console.log("api run")
+        this.moviesList = [];
         axios
           .get('https://api.themoviedb.org/3/search/movie/', {
             params: {
@@ -36,8 +37,21 @@ export default {
             }
           })
           .then((response) => {
-            this.moviesList = response.data.results;
-            // return response.data.results;
+            this.moviesList.push(...response.data.results);
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+        axios
+          .get('https://api.themoviedb.org/3/search/tv/', {
+            params: {
+              api_key: "4e084792fe571911078b5fc34eaab7de",
+              language: "it-IT",
+              query: this.movieQuery
+            }
+          })
+          .then((response) => {
+            this.moviesList.push(...response.data.results);
           })
           .catch((error) => {
             console.log(error);
