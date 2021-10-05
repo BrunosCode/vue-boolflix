@@ -1,21 +1,19 @@
 <template>
   <div class="c-movies">
-    <div v-for="(movie, i) in moviesList" :key="i" 
-    class="c-movies__card">
-      <h3>{{movie.title || movie.name}}</h3>
-      <h5>{{movie.original_title || movie.original_name}}</h5>
-      <img :src="`https://www.countryflags.io/${(movie.original_language == 'en') ? 'us' : movie.original_language }/flat/64.png`">
-      <p>Language {{movie.original_language}}</p>
-      <p>Vote {{movie.vote_average}}</p>
-    </div>
+    <MovieCard v-for="(movie, i) in moviesList" :key="i" :movieData="movie"
+    class="c-movies__card" />
   </div>
 </template>
 
 <script>
+import MovieCard from "./MovieCard.vue"
 import axios from "axios";
 
 export default {
   name: 'Movies',
+  components: {
+    MovieCard
+  },
   props: {
     movieQuery: String
   },
