@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Header/>
-    <Movies/>
+    <Header @movie-query="storeQuery"/>
+    <Movies :movie-query="movieQuery"/>
   </div>
 </template>
 
@@ -14,6 +14,17 @@ export default {
   components: {
     Header,
     Movies
+  },
+  data() {
+    return {
+      movieQuery: "ritorno al futuro",
+    }
+  },
+  methods: {
+    storeQuery: function(movieQuery) {
+      console.log("app", movieQuery);
+      this.movieQuery = movieQuery;
+    }
   }
 }
 </script>

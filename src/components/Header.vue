@@ -1,7 +1,7 @@
 <template>
   <div class="c-header">
     <h1 class="c-header__logo">BOOLFLIX</h1>
-    <Searchbar />
+    <Searchbar @movie-query="emitQuery"/>
   </div>
 </template>
 
@@ -12,6 +12,12 @@ export default {
   name: 'Header',
   components: {
     Searchbar
+  },
+  methods: {
+    emitQuery: function(movieQuery) {
+      console.log("header", movieQuery)
+      this.$emit("movie-query", movieQuery);
+    }
   }
   
 }

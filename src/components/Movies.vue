@@ -15,26 +15,43 @@ import axios from "axios";
 
 export default {
   name: 'Movies',
+  props: {
+    movieQuery: String
+  },
   data() {
     return {
       moviesList: []
     }
   },
-  mounted() {
-    axios
-      .get('https://api.themoviedb.org/3/search/movie/', {
-        params: {
-          api_key: "4e084792fe571911078b5fc34eaab7de",
-          language: "it-IT",
-          query: "ritorno+al+futuro"
-        }
-      })
-      .then((response) => {
-        this.moviesList.push(...response.data.results);
-      })
-      .catch((error) => {
-        console.log(error);
-      }) 
+  methods: {
+    generateMovieList: function() {
+      if(this.movieQuery !== "") {
+        console.log("api run")
+        axios
+          .get('https://api.themoviedb.org/3/search/movie/', {
+            params: {
+              api_key: "4e084792fe571911078b5fc34eaab7de",
+              language: "it-IT",
+              query: this.movieQuery
+            }
+          })
+          .then((response) => {
+            this.moviesList = response.data.results;
+            // return response.data.results;
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      }
+    }
+  },
+  created() {
+    this.generateMovieList()
+  },
+  watch: {
+    movieQuery: function() {
+      this.generateMovieList()
+    }
   }
 }
 </script>
