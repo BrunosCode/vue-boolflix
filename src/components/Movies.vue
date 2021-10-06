@@ -1,8 +1,11 @@
 <template>
-  <div class="c-movies">
+<div class="c-collection">
+  <h2 class="c-collection__title">{{collection.title}}</h2>
+  <div class="c-collection__row">
     <MovieCard v-for="(movie, i) in moviesList" :key="i" :movieData="movie"
-    class="c-movies__card" />
+    class="c-collection__card" />
   </div>
+</div>
 </template>
 
 <script>
@@ -15,7 +18,8 @@ export default {
     MovieCard
   },
   props: {
-    movieQuery: String
+    movieQuery: String,
+    collection: Object
   },
   data() {
     return {
@@ -24,37 +28,21 @@ export default {
   },
   methods: {
     generateMovieList: function() {
-      if(this.movieQuery !== "") {
-        this.moviesList = [];
-        axios
-          .get('https://api.themoviedb.org/3/search/movie/', {
-            params: {
-              api_key: "4e084792fe571911078b5fc34eaab7de",
-              language: "it-IT",
-              query: this.movieQuery
-            }
-          })
-          .then((response) => {
-            this.moviesList.push(...response.data.results);
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-        axios
-          .get('https://api.themoviedb.org/3/search/tv/', {
-            params: {
-              api_key: "4e084792fe571911078b5fc34eaab7de",
-              language: "it-IT",
-              query: this.movieQuery
-            }
-          })
-          .then((response) => {
-            this.moviesList.push(...response.data.results);
-          })
-          .catch((error) => {
-            console.log(error);
-          })
-      }
+      this.moviesList = [];
+      axios
+        .get(`https://api.themoviedb.org/3/${this.collection.url}`, {
+          params: {
+            api_key: "4e084792fe571911078b5fc34eaab7de",
+            language: "it-IT",
+            query: this.movieQuery
+          }
+        })
+        .then((response) => {
+          this.moviesList.push(...response.data.results);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
     }
   },
   created() {
@@ -70,5 +58,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
+.c-collection__row {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+}
 </style>

@@ -1,7 +1,14 @@
 <template>
   <div id="app">
     <Header @movie-query="storeQuery"/>
-    <Movies :movie-query="movieQuery"/>
+    <div v-if="!movieQuery">
+      <Movies v-for="(collection, i) in collections" :key="i" 
+      :movie-query="movieQuery" :collection="collection"/>
+    </div>
+    <div v-if="movieQuery">
+      <Movies v-for="(collection, i) in searchedCollection" :key="i" 
+      :movie-query="movieQuery" :collection="collection"/>
+    </div>
   </div>
 </template>
 
@@ -17,7 +24,27 @@ export default {
   },
   data() {
     return {
-      movieQuery: "ritorno al futuro",
+      movieQuery: "",
+      collections: {
+        discoverPopularMovie: {
+          title: "Discover Popular Movies",
+          url: "discover/movie/?sort_by=popularity.desc&",
+        },
+        discoverPopularSeries: {
+          title: "Discover Popular Series",
+          url: "discover/tv/?sort_by=popularity.desc&",
+        }
+      },
+      searchedCollection: {
+        searchedMovies: {
+          title: "Movies Results",
+          url: "search/movie/?",
+        },
+        searchedSeries: {
+          title: "Series Results",
+          url: "search/tv/?",
+        }
+      }
     }
   },
   methods: {
