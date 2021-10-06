@@ -1,0 +1,19 @@
+// RESET
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+// LAYOUTS
+.l-row {
+    display: flex;
+    flex-direction: row;
+
+}
+.l-alignCenter {
+    align-items: center;
+}
+.l-spaceBetween {
+    justify-content: space-between;
+}

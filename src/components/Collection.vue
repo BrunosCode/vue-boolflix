@@ -1,21 +1,21 @@
 <template>
 <div class="c-collection">
   <h2 class="c-collection__title">{{collection.title}}</h2>
-  <div class="c-collection__row">
-    <MovieCard v-for="(movie, i) in moviesList" :key="i" :movieData="movie"
+  <div class="l-row c-collection__row">
+    <Card v-for="(movie, i) in moviesList" :key="i" :movieData="movie"
     class="c-collection__card" />
   </div>
 </div>
 </template>
 
 <script>
-import MovieCard from "./MovieCard.vue"
+import Card from "./Card.vue"
 import axios from "axios";
 
 export default {
-  name: 'Movies',
+  name: 'Collection',
   components: {
-    MovieCard
+    Card
   },
   props: {
     movieQuery: String,

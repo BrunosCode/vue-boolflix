@@ -1,5 +1,5 @@
 <template>
-  <div class="c-header">
+  <div class="l-row l-spaceBetween l-alignCenter c-header">
     <h1 class="c-header__logo">BOOLFLIX</h1>
     <Searchbar @movie-query="emitQuery"/>
   </div>
@@ -25,5 +25,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+@import "../assets/style/variables.scss";
 
+.c-header {
+  background-color: $bg-secondary;
+  padding: .5rem 1rem;
+}
 </style>

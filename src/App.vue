@@ -1,26 +1,30 @@
 <template>
   <div id="app">
     <Header @movie-query="storeQuery"/>
-    <div v-if="!movieQuery">
-      <Movies v-for="(collection, i) in collections" :key="i" 
-      :movie-query="movieQuery" :collection="collection"/>
-    </div>
-    <div v-if="movieQuery">
-      <Movies v-for="(collection, i) in searchedCollection" :key="i" 
-      :movie-query="movieQuery" :collection="collection"/>
-    </div>
+
+    <main class="c-main">
+      <div v-if="!movieQuery">
+        <Collection v-for="(collection, i) in collections" :key="i" 
+        :movie-query="movieQuery" :collection="collection"/>
+      </div>
+
+      <div v-if="movieQuery">
+        <Collection v-for="(collection, i) in searchedCollection" :key="i" 
+        :movie-query="movieQuery" :collection="collection"/>
+      </div>
+    </main>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue';
-import Movies from './components/Movies.vue';
+import Collection from './components/Collection.vue';
 
 export default {
   name: 'App',
   components: {
     Header,
-    Movies
+    Collection
   },
   data() {
     return {
@@ -57,5 +61,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./assets/style/variables.scss";
+@import "./assets/style/common.scss";
+
+#app {
+  background-color: $bg-primary;
+  color: $text-primary;
+}
+
+.c-main {
+  padding: 1rem;
+}
 
 </style>
