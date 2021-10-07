@@ -14,7 +14,9 @@
           class="c-flag"/>
         </p>
         <p class="c-card__data">Rating: 
-          <font-awesome-icon v-for="star in stars" :key="star" icon="star" 
+          <font-awesome-icon v-for="(star, i) in stars" :key="i" :icon="['fas', 'star']"
+          class="c-star"/>
+          <font-awesome-icon v-for="(emptyStar, i) in ( 5 - stars )" :key="i" :icon="['far', 'star']" 
           class="c-star"/>
         </p>
         <p v-if="movie.overview" class="c-card__subtitle">Descrizione: </p>

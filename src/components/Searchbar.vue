@@ -1,6 +1,6 @@
 <template>
   <div class="l-row l-alignCenter c-searchbar">
-    <input v-model="movieQuery" @enter="emitQuery"
+    <input v-model="movieQuery" @keyup.enter="emitQuery"
     class="c-searchbar__input" 
     type="text" name="movieQuery" id="movieQuery" placeholder="Search title">
     <font-awesome-icon icon="search" class="c-searchbar__icon"/>

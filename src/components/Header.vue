@@ -30,6 +30,7 @@ export default {
 .c-header {
   background-image: linear-gradient($bg-primary, $bg-secondary);
   padding: .5rem 1rem;
+  margin-bottom: 3rem;
 
   &__logo {
     color: $red;

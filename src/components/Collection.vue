@@ -5,7 +5,7 @@
     <button @click="slideLeft" class="c-collection__arrow c-collection__arrow--left">
       <font-awesome-icon icon="chevron-left"/>
     </button>
-    <Card v-for="(movie, i) in moviesList.slice(rowStart, rowEnd)" :key="i" :movie="movie"
+    <Card v-for="(movie, i) in visibleRow" :key="i" :movie="movie"
     class="c-collection__card"/>
     <button @click="slideRight" class="c-collection__arrow c-collection__arrow--right">
       <font-awesome-icon icon="chevron-right"/>
@@ -25,6 +25,7 @@ export default {
   },
   props: {
     movieQuery: String,
+    genreFilter: String,
     collection: Object
   },
   data() {
@@ -34,12 +35,26 @@ export default {
     }
   },
   computed: {
+    filteredList: function() {
+      if (this.genreFilter) {
+        return this.moviesList.filter(movie => movie.genre_ids.includes(parseInt(this.genreFilter)));
+      } else {
+        return this.moviesList;
+      }
+    },
+    // Calculate the possibile number of card per row based on window's width
+    cardPerRow: function() {
+      return parseInt(window.innerWidth / 300); 
+    },
     rowStart: function() {
       return this.rowPosition;
     },
     rowEnd: function() {
-      return this.rowPosition + 5 + 1;
+      return this.rowPosition + this.cardPerRow;
     },
+    visibleRow: function() {
+      return this.filteredList.slice(this.rowStart, this.rowEnd);
+    }
   },
   methods: {
     generateMovieList: function() {
@@ -58,9 +73,42 @@ export default {
         .catch((error) => {
           console.log(error);
         })
+      // To avoid empty rows when filtered by genre
+      if (this.genreFilter) {
+        axios
+        .get(`https://api.themoviedb.org/3/${this.collection.url}`, {
+          params: {
+            api_key: "4e084792fe571911078b5fc34eaab7de",
+            language: "it-IT",
+            query: this.movieQuery,
+            page: 2,
+          }
+        })
+        .then((response) => {
+          this.moviesList.push(...response.data.results);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+
+        axios
+        .get(`https://api.themoviedb.org/3/${this.collection.url}`, {
+          params: {
+            api_key: "4e084792fe571911078b5fc34eaab7de",
+            language: "it-IT",
+            query: this.movieQuery,
+            page: 3,
+          }
+        })
+        .then((response) => {
+          this.moviesList.push(...response.data.results);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+      }
     },
     slideRight: function() {
-      console.log("slideRight");
       if (this.rowPosition < this.moviesList.length - 5) {
         this.rowPosition += 1;
       } else {
@@ -68,7 +116,6 @@ export default {
       }
     },
     slideLeft: function() {
-      console.log("slideLeft");
       if (this.rowPosition > 0) {
         this.rowPosition -= 1;
       } else {
@@ -91,7 +138,7 @@ export default {
 @import "../assets/style/variables.scss";
 
 .c-collection {
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
   position: relative;
 
   &__title {
