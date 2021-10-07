@@ -1,6 +1,6 @@
 <template>
   <div class="c-container">
-    <div class="c-card">
+    <div @click="emitModal(movie)" class="c-card">
       <div class="c-card__cover">
         <h3 class="c-card__titleCover">{{movie.title || movie.name}}</h3>
         <img :src="imgSrc" :alt="movie.title || movie.name" 
@@ -53,6 +53,9 @@ export default {
   methods: {
     isTitleOriginal: function(movie) {
       return (movie.title || movie.name) === (movie.original_title || movie.original_name);
+    },
+    emitModal: function(movie) {
+      this.$emit("emit-modal", movie);
     }
   }
 }
@@ -152,9 +155,5 @@ export default {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical; 
   }
-}
-
-.c-star {
-  color: $gold;
 }
 </style>

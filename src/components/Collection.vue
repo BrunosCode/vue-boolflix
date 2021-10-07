@@ -5,23 +5,27 @@
     <button @click="slideLeft" class="c-collection__arrow c-collection__arrow--left">
       <font-awesome-icon icon="chevron-left"/>
     </button>
-    <Card v-for="(movie, i) in visibleRow" :key="i" :movie="movie"
+    <Card v-for="(movie, i) in visibleRow" :key="i" :movie="movie" @emit-modal="openModal"
     class="c-collection__card"/>
     <button @click="slideRight" class="c-collection__arrow c-collection__arrow--right">
       <font-awesome-icon icon="chevron-right"/>
     </button>
+
+  <Modal v-if="modalOpen" :movie="movieModal" @close-modal="closeModal"/>
   </div>
 </div>
 </template>
 
 <script>
-import Card from "./Card.vue"
+import Card from "./Card.vue";
+import Modal from './Modal.vue';
 import axios from "axios";
 
 export default {
   name: 'Collection',
   components: {
-    Card
+    Card,
+    Modal
   },
   props: {
     movieQuery: String,
@@ -32,6 +36,8 @@ export default {
     return {
       moviesList: [],
       rowPosition: 0,
+      movieModal: {},
+      modalOpen: false
     }
   },
   computed: {
@@ -138,6 +144,15 @@ export default {
         this.rowPosition = this.moviesList.length - 5;
       }
     },
+    openModal: function(movieModal) {
+      console.log("app store modal", movieModal);
+      this.modalOpen = true;
+      this.movieModal = {...movieModal};
+    },
+    closeModal: function() {
+      this.modalOpen = false;
+      this.movieModal = {};
+    }
   },
   created() {
     this.generateMovieList()

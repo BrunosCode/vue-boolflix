@@ -16,7 +16,7 @@
           </select>
         </div>
 
-        <Collection v-for="(collection, i) in collections" :key="i" 
+        <Collection v-for="(collection, i) in collections" :key="i" @movie-modal="openModal"
         :movie-query="movieQuery" :collection="collection" :genre-filter="genreFilter"/>
       </div>
 
@@ -26,6 +26,7 @@
         :movie-query="movieQuery" :collection="collection"/>
       </div>
     </main>
+
   </div>
 </template>
 
@@ -47,13 +48,12 @@ export default {
       genreFilter: "",
       allGenres: [],
       pages: pages,
-      currentPage: "home"
+      currentPage: "home",
       }
     
   },
   methods: {
     filtersAllowed: function(currentPage) {
-      console.log("filters allowed", currentPage);
       return currentPage === 'series' || currentPage === 'movies' ;
     },
     generateGenreList: function() {
@@ -68,7 +68,6 @@ export default {
           filterType = "movie"
         }
 
-        console.log("filterType", filterType)
         axios
           .get(`https://api.themoviedb.org/3/genre/${filterType}/list?`, {
             params: {
@@ -86,13 +85,11 @@ export default {
       }
     },
     storeQuery: function(movieQuery) {
-      console.log("app", movieQuery);
       this.movieQuery = movieQuery;
     },
     storeCurrentPage: function(currentPage) {
-      console.log("app", currentPage);
       this.currentPage = currentPage;
-    }
+    },
   },
   computed: {
     collections: function() {
@@ -124,6 +121,7 @@ export default {
   padding: 1rem;
   display: flex;
   justify-content: center;
+  position: relative;
 
   &__title {
     display: inline-block;
