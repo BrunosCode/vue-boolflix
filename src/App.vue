@@ -16,7 +16,7 @@
           </select>
         </div>
 
-        <Collection v-for="(collection, i) in collections" :key="i" @movie-modal="openModal"
+        <Collection v-for="(collection, i) in collections" :key="i" 
         :movie-query="movieQuery" :collection="collection" :genre-filter="genreFilter"/>
       </div>
 
@@ -72,7 +72,7 @@ export default {
           .get(`https://api.themoviedb.org/3/genre/${filterType}/list?`, {
             params: {
               api_key: "4e084792fe571911078b5fc34eaab7de",
-              language: "it-IT",
+              language: "en-US",
             }
           })
           .then((response) => {

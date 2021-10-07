@@ -11,7 +11,7 @@
         <h3 class="c-card__title">{{movie.title || movie.name}}</h3>
         <p v-if="!isTitleOriginal(movie)" class="c-card__subtitle">{{movie.original_title || movie.original_name}}</p>
         
-        <div class="l-grid-col2">
+        <div class="l-grid--col2">
           <p class="c-card__data">Language: 
             <lang-flag :iso="movie.original_language" :squared="false" 
             class="c-flag"/>
