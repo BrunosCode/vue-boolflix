@@ -106,6 +106,22 @@ export default {
         .catch((error) => {
           console.log(error);
         })
+
+        axios
+        .get(`https://api.themoviedb.org/3/${this.collection.url}`, {
+          params: {
+            api_key: "4e084792fe571911078b5fc34eaab7de",
+            language: "it-IT",
+            query: this.movieQuery,
+            page: 4,
+          }
+        })
+        .then((response) => {
+          this.moviesList.push(...response.data.results);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
       }
     },
     slideRight: function() {

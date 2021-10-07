@@ -6,13 +6,13 @@
       <!-- Common pages -->
       <div v-if="!movieQuery">
         <!-- Series and movies Page filter -->
-        <div v-if="currentPage === 'series' || currentPage === 'movies'"
-        class="c-main__header">
+        <div v-if="filtersAllowed(currentPage)" class="c-main__header">
           <h2 class="c-main__title">{{currentPage}}</h2>
           <select v-model="genreFilter" 
           class="c-main__filter" name="genre" id="genre">
             <option value="" disabled selected>Select a Genre</option>
-            <option value="prova">Prova</option>
+            <option v-for="(genre, i) in allGenres" :key="i" 
+            :value="genre.id">{{genre.name}}</option>
           </select>
         </div>
 
@@ -33,6 +33,7 @@
 import Header from './components/Header.vue';
 import Collection from './components/Collection.vue';
 import pages from './data/pages.json';
+import axios from "axios";
 
 export default {
   name: 'App',
@@ -44,12 +45,46 @@ export default {
     return {
       movieQuery: "",
       genreFilter: "",
+      allGenres: [],
       pages: pages,
       currentPage: "home"
       }
     
   },
   methods: {
+    filtersAllowed: function(currentPage) {
+      console.log("filters allowed", currentPage);
+      return currentPage === 'series' || currentPage === 'movies' ;
+    },
+    generateGenreList: function() {
+      this.genreList = [];
+      if (this.filtersAllowed(this.currentPage)) {
+        // I didn't want to change all variables names
+        let filterType = this.currentPage;
+        if (filterType === "series") {
+          filterType = "tv"
+        }
+        if (filterType === "movies") {
+          filterType = "movie"
+        }
+
+        console.log("filterType", filterType)
+        axios
+          .get(`https://api.themoviedb.org/3/genre/${filterType}/list?`, {
+            params: {
+              api_key: "4e084792fe571911078b5fc34eaab7de",
+              language: "it-IT",
+            }
+          })
+          .then((response) => {
+            console.log("response", response.data.genres)
+            this.allGenres.push(...response.data.genres);
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      }
+    },
     storeQuery: function(movieQuery) {
       console.log("app", movieQuery);
       this.movieQuery = movieQuery;
@@ -63,7 +98,13 @@ export default {
     collections: function() {
       return this.pages[this.currentPage];
     }
-  }
+  },
+  watch: {
+    currentPage: function() {
+      this.generateGenreList();
+    }
+  },
+
 }
 </script>
 
