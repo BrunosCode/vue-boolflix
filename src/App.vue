@@ -67,10 +67,15 @@ export default {
 #app {
   background-color: $bg-primary;
   color: $text-primary;
+  font-family: 'Open Sans', sans-serif;
+
+  min-height: 100vh;
 }
 
 .c-main {
   padding: 1rem;
+  display: flex;
+  justify-content: center;
 }
 
 </style>

@@ -28,7 +28,13 @@ export default {
 @import "../assets/style/variables.scss";
 
 .c-header {
-  background-color: $bg-secondary;
+  background-image: linear-gradient($bg-primary, $bg-secondary);
   padding: .5rem 1rem;
+
+  &__logo {
+    color: $red;
+    font-family: 'Bebas Neue', cursive;
+    text-transform: uppercase;
+  }
 }
 </style>
