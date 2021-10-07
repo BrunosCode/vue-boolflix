@@ -10,7 +10,7 @@
           <h2 class="c-main__title">{{currentPage}}</h2>
           <select v-model="genreFilter" 
           class="c-main__filter" name="genre" id="genre">
-            <option value="" disabled selected>Select a Genre</option>
+            <option value="" selected>Select a Genre</option>
             <option v-for="(genre, i) in allGenres" :key="i" 
             :value="genre.id">{{genre.name}}</option>
           </select>

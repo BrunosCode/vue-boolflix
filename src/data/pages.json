@@ -1,5 +1,13 @@
 {
     "home": {
+        "trendingMovies": {
+            "title": "Trending Movies",
+            "url": "trending/movie/week"
+        },
+        "trendingSeries": {
+            "title": "Trending Series",
+            "url": "trending/tv/week"
+        },
         "discoverPopularMovie": {
             "title": "Discover Popular Movies",
             "url": "discover/movie/?sort_by=popularity.desc&"
@@ -7,18 +15,42 @@
         "discoverPopularSeries": {
             "title": "Discover Popular Series",
             "url": "discover/tv/?sort_by=popularity.desc&"
+        },
+        "mostVotedMovies": {
+            "title": "Most Voted Movies",
+            "url": "discover/movie/?vote_count.desc"
+        },
+        "mostVotedSeries": {
+            "title": "Most Voted Series",
+            "url": "discover/tv/?vote_count.desc"
         }
     },
     "movies": {
+        "trendingMovies": {
+            "title": "Trending Movies",
+            "url": "trending/movie/week"
+        },
         "discoverPopularMovie": {
             "title": "Discover Popular Movies",
             "url": "discover/movie/?sort_by=popularity.desc&"
+        },
+        "mostVotedMovies": {
+            "title": "Most Voted Movies",
+            "url": "discover/movie/?vote_count.desc"
         }
     },
     "series": {
+        "trendingSeries": {
+            "title": "Trending Series",
+            "url": "trending/tv/week"
+        },
         "discoverPopularSeries": {
           "title": "Discover Popular Series",
           "url": "discover/tv/?sort_by=popularity.desc&"
+        },
+        "mostVotedSeries": {
+            "title": "Most Voted Series",
+            "url": "discover/tv/?vote_count.desc"
         }
     }
 }
