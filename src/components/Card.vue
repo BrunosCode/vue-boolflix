@@ -2,23 +2,28 @@
   <div class="c-container">
     <div class="c-card">
       <div class="c-card__cover">
-        <h3 class="c-card__title">{{movie.title || movie.name}}</h3>
+        <h3 class="c-card__titleCover">{{movie.title || movie.name}}</h3>
         <img :src="imgSrc" :alt="movie.title || movie.name" 
         class="c-card__img" loading="lazy">
       </div>
 
       <div class="c-card__info">
-        <h5 v-if="!isTitleOriginal(movie)" class="c-card__subtitle">{{movie.original_title || movie.original_name}}</h5>
-        <p class="c-card__data">Language: 
-          <lang-flag :iso="movie.original_language" :squared="false" 
-          class="c-flag"/>
-        </p>
-        <p class="c-card__data">Rating: 
-          <font-awesome-icon v-for="(star, i) in stars" :key="i" :icon="['fas', 'star']"
-          class="c-star"/>
-          <font-awesome-icon v-for="(emptyStar, i) in ( 5 - stars )" :key="i" :icon="['far', 'star']" 
-          class="c-star"/>
-        </p>
+        <h3 class="c-card__title">{{movie.title || movie.name}}</h3>
+        <p v-if="!isTitleOriginal(movie)" class="c-card__subtitle">{{movie.original_title || movie.original_name}}</p>
+        
+        <div class="l-grid-col2">
+          <p class="c-card__data">Language: 
+            <lang-flag :iso="movie.original_language" :squared="false" 
+            class="c-flag"/>
+          </p>
+          <p class="c-card__data">Rating: 
+            <font-awesome-icon v-for="(star, i) in stars" :key="i" :icon="['fas', 'star']"
+            class="c-star"/>
+            <font-awesome-icon v-for="(emptyStar, i) in ( 5 - stars )" :key="i + 5" :icon="['far', 'star']" 
+            class="c-star"/>
+          </p>
+        </div>
+
         <p v-if="movie.overview" class="c-card__subtitle">Descrizione: </p>
         <p v-if="movie.overview" class="c-card__data c-card__overview">{{movie.overview}}</p>
       </div>
@@ -85,17 +90,21 @@ export default {
     justify-content: flex-end;
     width: 300px;
     height: 200px;
-    padding: 1rem;
+    padding: .5rem;
   }
   &:hover &__cover {
     width: calc(300px + 300px/3);
     height: calc(200px + 200px/3);
   }
-  &__title {
+  &__titleCover {
     z-index: 1;
     padding: 0 .5rem;
     background-color: $textShadow;  
   }
+  &:hover &__titleCover {
+    display: none;
+  }
+
   &__img {
     background-color: $bg-secondary;
     color: $bg-secondary;
@@ -117,22 +126,24 @@ export default {
     padding: .75rem 1rem;
     width: 100%;
     display: none;
-
-    > * {
-      margin-top: .5rem;
-    }
   }
   &:hover &__info {
     background-color: $bg-secondary;
     display: block;
   }
 
+  &__title {
+    color: $text-primary;
+    font-weight: 700;
+  }
   &__subtitle {
     color: $text-secondary;
     font-weight: 700;
+    margin: .125rem 0;
   }
   &__data {
     color: $text-secondary;
+    margin: .5rem 0;
   }
 
   &__overview {

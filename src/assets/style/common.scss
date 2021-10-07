@@ -20,6 +20,11 @@
     justify-content: space-between;
 }
 
+.l-grid-col2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 // COMMON COMPONENTS
 .c-star {
     color: $gold;

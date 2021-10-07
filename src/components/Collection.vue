@@ -140,6 +140,7 @@ export default {
 .c-collection {
   margin-bottom: 3rem;
   position: relative;
+  margin-top: 3rem;
 
   &__title {
     margin-bottom: .75rem;

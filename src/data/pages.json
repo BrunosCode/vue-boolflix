@@ -1,0 +1,24 @@
+{
+    "home": {
+        "discoverPopularMovie": {
+            "title": "Discover Popular Movies",
+            "url": "discover/movie/?sort_by=popularity.desc&"
+        },
+        "discoverPopularSeries": {
+            "title": "Discover Popular Series",
+            "url": "discover/tv/?sort_by=popularity.desc&"
+        }
+    },
+    "movies": {
+        "discoverPopularMovie": {
+            "title": "Discover Popular Movies",
+            "url": "discover/movie/?sort_by=popularity.desc&"
+        }
+    },
+    "series": {
+        "discoverPopularSeries": {
+          "title": "Discover Popular Series",
+          "url": "discover/tv/?sort_by=popularity.desc&"
+        }
+    }
+}
