@@ -19,6 +19,9 @@
 .l-spaceBetween {
     justify-content: space-between;
 }
+.l-wrap {
+    flex-wrap: wrap;
+}
 
 .l-grid--col2 {
     display: grid;
@@ -36,4 +39,11 @@
 
 .h-text--primary {
     color: $text-primary;
+}
+
+@media screen and (max-width: 800px){
+    .l-grid--col2 {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
 }

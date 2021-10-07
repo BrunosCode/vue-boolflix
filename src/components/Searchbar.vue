@@ -14,7 +14,7 @@ export default {
   name: 'Searchbar',
   data() {
     return {
-      movieQuery: ""
+      movieQuery: "",
     }
   },
   methods: {
@@ -40,15 +40,16 @@ export default {
     outline: none;
     margin-right: 1rem;
     padding: .5rem 1rem;
-    width: 0;
+    width: 2rem;
     border-radius: .25rem;
     transition: .5s;
   }
-  &:hover &__input {
+  &:hover &__input,
+  &:focus &__input {
     background-color: $bg-primary;
     border-color: white;
     color: white;
-    width: 15rem;
+    width: 12rem;
     padding: .5rem 2rem;
   }
 
@@ -76,6 +77,10 @@ export default {
       box-shadow: 0 0 2px white;
     }
   }
-
+  @media screen and (max-width: 500px){
+    &__btn {
+      display: none;
+    }
+  }
 }
 </style>

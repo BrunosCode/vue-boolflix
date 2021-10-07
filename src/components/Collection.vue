@@ -1,13 +1,15 @@
 <template>
 <div class="c-collection">
-  <h2 class="c-collection__title">{{collection.title}}</h2>
-  <div class="l-row l-alignCenter c-collection__row">
-    <button @click="slideLeft" class="c-collection__arrow c-collection__arrow--left">
+  <h2 v-if="collection.title" class="c-collection__title">{{collection.title}}</h2>
+  <div class="l-row l-wrap l-alignCenter c-collection__row">
+    <button @click="slideLeft" v-if="!movieQuery"
+    class="c-collection__arrow c-collection__arrow--left">
       <font-awesome-icon icon="chevron-left"/>
     </button>
     <Card v-for="(movie, i) in visibleRow" :key="i" :movie="movie" @emit-modal="openModal"
     class="c-collection__card"/>
-    <button @click="slideRight" class="c-collection__arrow c-collection__arrow--right">
+    <button @click="slideRight" v-if="!movieQuery"
+    class="c-collection__arrow c-collection__arrow--right">
       <font-awesome-icon icon="chevron-right"/>
     </button>
 
@@ -29,7 +31,7 @@ export default {
   },
   props: {
     movieQuery: String,
-    genreFilter: String,
+    genreFilter: Number,
     collection: Object
   },
   data() {
@@ -42,8 +44,10 @@ export default {
   },
   computed: {
     filteredList: function() {
-      if (this.genreFilter) {
-        return this.moviesList.filter(movie => movie.genre_ids.includes(parseInt(this.genreFilter)));
+      if (this.genreFilter !== -1) {
+        return this.moviesList.filter(movie => movie.genre_ids.includes(this.genreFilter));
+      } else if (this.movieQuery) {
+        return this.moviesList.filter(movie => movie.media_type !== "person");
       } else {
         return this.moviesList;
       }
@@ -59,75 +63,38 @@ export default {
       return this.rowPosition + this.cardPerRow;
     },
     visibleRow: function() {
+      // if the list is based on a search show all the results
+      if(this.movieQuery) {
+        return this.filteredList;
+      }
       return this.filteredList.slice(this.rowStart, this.rowEnd);
     }
   },
   methods: {
     generateMovieList: function() {
       this.moviesList = [];
-      axios
-        .get(`https://api.themoviedb.org/3/${this.collection.url}`, {
-          params: {
-            api_key: "4e084792fe571911078b5fc34eaab7de",
-            language: "it-IT",
-            query: this.movieQuery
-          }
-        })
-        .then((response) => {
-          this.moviesList.push(...response.data.results);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+      let requestedPage = 1;
       // To avoid empty rows when filtered by genre
-      if (this.genreFilter) {
+      if (this.genreFilter !== -1) {
+        requestedPage = 3;
+      }
+      for(let i = 0; i < requestedPage; i++) {
         axios
-        .get(`https://api.themoviedb.org/3/${this.collection.url}`, {
-          params: {
-            api_key: "4e084792fe571911078b5fc34eaab7de",
-            language: "it-IT",
-            query: this.movieQuery,
-            page: 2,
-          }
-        })
-        .then((response) => {
-          this.moviesList.push(...response.data.results);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-
-        axios
-        .get(`https://api.themoviedb.org/3/${this.collection.url}`, {
-          params: {
-            api_key: "4e084792fe571911078b5fc34eaab7de",
-            language: "it-IT",
-            query: this.movieQuery,
-            page: 3,
-          }
-        })
-        .then((response) => {
-          this.moviesList.push(...response.data.results);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-
-        axios
-        .get(`https://api.themoviedb.org/3/${this.collection.url}`, {
-          params: {
-            api_key: "4e084792fe571911078b5fc34eaab7de",
-            language: "it-IT",
-            query: this.movieQuery,
-            page: 4,
-          }
-        })
-        .then((response) => {
-          this.moviesList.push(...response.data.results);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+          .get(`https://api.themoviedb.org/3/${this.collection.url}`, {
+            params: {
+              api_key: "4e084792fe571911078b5fc34eaab7de",
+              language: "it-IT",
+              query: this.movieQuery,
+              page: i + 1
+            }
+          })
+          .then((response) => {
+            console.log(response.data.results);
+            this.moviesList.push(...response.data.results);
+          })
+          .catch((error) => {
+            console.log(error);
+          })
       }
     },
     slideRight: function() {
@@ -180,7 +147,7 @@ export default {
   &__arrow {
     position: absolute;
     font-size: 2rem;
-    z-index: 3;
+    z-index: 2;
     padding: 1rem .75rem;
     border-radius: .5rem;
     color: $text-secondary;

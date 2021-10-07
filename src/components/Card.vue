@@ -69,6 +69,7 @@ export default {
   position: relative;
   min-width: 300px;
   margin-right: .5rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

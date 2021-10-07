@@ -10,7 +10,7 @@
           <h2 class="c-main__title">{{currentPage}}</h2>
           <select v-model="genreFilter" 
           class="c-main__filter" name="genre" id="genre">
-            <option value="" selected>Select a Genre</option>
+            <option value="-1" selected>Select a Genre</option>
             <option v-for="(genre, i) in allGenres" :key="i" 
             :value="genre.id">{{genre.name}}</option>
           </select>
@@ -22,8 +22,7 @@
 
       <!-- Search resutls page -->
       <div v-if="movieQuery">
-        <Collection v-for="(collection, i) in searchedCollection" :key="i" 
-        :movie-query="movieQuery" :collection="collection"/>
+        <Collection :movie-query="movieQuery" :collection="searchCollection"/>
       </div>
     </main>
 
@@ -45,12 +44,15 @@ export default {
   data() {
     return {
       movieQuery: "",
-      genreFilter: "",
+      genreFilter: -1,
       allGenres: [],
       pages: pages,
       currentPage: "home",
+      searchCollection: {
+        title: "",
+        url: "search/multi/"
       }
-    
+    }
   },
   methods: {
     filtersAllowed: function(currentPage) {
@@ -89,7 +91,11 @@ export default {
     },
     storeCurrentPage: function(currentPage) {
       this.currentPage = currentPage;
+      this.resetQuery();
     },
+    resetQuery: function() {
+      this.movieQuery = "";
+    }
   },
   computed: {
     collections: function() {

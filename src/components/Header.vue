@@ -27,7 +27,6 @@ export default {
       this.$emit("movie-query", movieQuery);
     },
     setCurrentPage: function(currentPage) {
-      console.log(currentPage);
       this.currentPage = currentPage;
       this.$emit("current-page", currentPage)
     }
@@ -71,9 +70,14 @@ export default {
     }
   }
 
-
   &__searchbar {
     margin-left: auto;
+  }
+
+  @media screen and (max-width: 500px){
+    &__link {
+      display: none;
+    }
   }
 }
 </style>

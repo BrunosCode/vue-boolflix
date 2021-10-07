@@ -196,5 +196,12 @@ export default {
     color: $text-secondary;
     margin: .5rem 0;
   }
+
+  @media screen and (max-width: 500px) {
+    & {
+      left: 0;
+      transform: translate(0, -50%);
+    }
+  }
 }
 </style>
