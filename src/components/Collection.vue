@@ -1,5 +1,5 @@
 <template>
-<div class="c-collection">
+<div v-if="visibleRow.length >= 1" class="c-collection">
   <h2 v-if="collection.title" class="c-collection__title">{{collection.title}}</h2>
   <div class="l-row l-wrap l-alignCenter c-collection__row">
     <button @click="slideLeft" v-if="!movieQuery"
@@ -76,7 +76,7 @@ export default {
       let requestedPage = 1;
       // To avoid empty rows when filtered by genre
       if (this.genreFilter) {
-        requestedPage = 3;
+        requestedPage = 5;
       }
       for(let i = 0; i < requestedPage; i++) {
         axios
