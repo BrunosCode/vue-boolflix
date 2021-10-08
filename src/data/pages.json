@@ -10,11 +10,11 @@
         },
         "discoverPopularMovie": {
             "title": "Discover Popular Movies",
-            "url": "discover/movie/"
+            "url": "discover/movie"
         },
         "discoverPopularSeries": {
             "title": "Discover Popular Series",
-            "url": "discover/tv/"
+            "url": "discover/tv"
         }
     },
     "movies": {
@@ -24,7 +24,7 @@
         },
         "discoverPopularMovie": {
             "title": "Discover Popular Movies",
-            "url": "discover/movie/"
+            "url": "discover/movie"
         }
     },
     "series": {
@@ -34,7 +34,7 @@
         },
         "discoverPopularSeries": {
           "title": "Discover Popular Series",
-          "url": "discover/tv/"
+          "url": "discover/tv"
         }
     }
 }
