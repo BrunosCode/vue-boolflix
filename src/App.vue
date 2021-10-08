@@ -78,7 +78,6 @@ export default {
             }
           })
           .then((response) => {
-            console.log("response", response.data.genres)
             this.allGenres.push(...response.data.genres);
           })
           .catch((error) => {

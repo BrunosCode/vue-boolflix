@@ -19,7 +19,6 @@ export default {
   },
   methods: {
     emitQuery: function() {
-      console.log("searchbar", this.movieQuery)
       this.$emit("movie-query", this.movieQuery);
     }
   }

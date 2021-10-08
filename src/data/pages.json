@@ -10,11 +10,11 @@
         },
         "discoverPopularMovie": {
             "title": "Discover Popular Movies",
-            "url": "discover/movie/?sort_by=popularity.desc&"
+            "url": "discover/movie/?sort_by=popularity.desc"
         },
         "discoverPopularSeries": {
             "title": "Discover Popular Series",
-            "url": "discover/tv/?sort_by=popularity.desc&"
+            "url": "discover/tv/?sort_by=popularity.desc"
         },
         "mostVotedMovies": {
             "title": "Most Voted Movies",
@@ -32,7 +32,7 @@
         },
         "discoverPopularMovie": {
             "title": "Discover Popular Movies",
-            "url": "discover/movie/?sort_by=popularity.desc&"
+            "url": "discover/movie/?sort_by=popularity.desc"
         },
         "mostVotedMovies": {
             "title": "Most Voted Movies",
@@ -46,7 +46,7 @@
         },
         "discoverPopularSeries": {
           "title": "Discover Popular Series",
-          "url": "discover/tv/?sort_by=popularity.desc&"
+          "url": "discover/tv/?sort_by=popularity.desc"
         },
         "mostVotedSeries": {
             "title": "Most Voted Series",

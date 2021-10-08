@@ -89,7 +89,6 @@ export default {
             }
           })
           .then((response) => {
-            console.log(response.data.results);
             this.moviesList.push(...response.data.results);
           })
           .catch((error) => {
@@ -112,7 +111,6 @@ export default {
       }
     },
     openModal: function(movieModal) {
-      console.log("app store modal", movieModal);
       this.modalOpen = true;
       this.movieModal = {...movieModal};
     },
