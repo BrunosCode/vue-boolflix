@@ -82,9 +82,14 @@ export default {
 .c-card {
   border-radius: 1rem;
   &:hover {
-    position: absolute;
-    box-shadow: 0 0 20px $darkShadow;
-    z-index: 2;
+    cursor: pointer;
+  }
+  @media screen and (min-width: 600px){
+    &:hover {
+      position: absolute;
+      box-shadow: 0 0 20px $darkShadow;
+      z-index: 2;
+    }
   }
 
   &__cover {
@@ -96,17 +101,21 @@ export default {
     height: 200px;
     padding: .5rem;
   }
-  &:hover &__cover {
-    width: calc(300px + 300px/3);
-    height: calc(200px + 200px/3);
+  @media screen and (min-width: 600px){
+    &:hover &__cover {
+      width: calc(300px + 300px/3);
+      height: calc(200px + 200px/3);
+    }
   }
   &__titleCover {
     z-index: 1;
     padding: 0 .5rem;
     background-color: $textShadow;  
   }
-  &:hover &__titleCover {
-    display: none;
+  @media screen and (min-width: 600px){
+    &:hover &__titleCover {
+      display: none;
+    }
   }
 
   &__img {
@@ -131,9 +140,11 @@ export default {
     width: 100%;
     display: none;
   }
-  &:hover &__info {
-    background-color: $bg-secondary;
-    display: block;
+  @media screen and (min-width: 600px){
+    &:hover &__info {
+      background-color: $bg-secondary;
+      display: block;
+    }
   }
 
   &__title {

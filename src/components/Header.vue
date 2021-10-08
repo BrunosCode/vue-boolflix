@@ -42,6 +42,7 @@ export default {
 .c-header {
   background-image: linear-gradient($bg-primary, $bg-secondary);
   padding: .5rem 1rem;
+  position: relative;
 
   &__logo {
     color: $red;
@@ -71,13 +72,15 @@ export default {
   }
 
   &__searchbar {
-    margin-left: auto;
+    right: .5rem;
+    position: absolute;
+    z-index: 2;
   }
 
   @media screen and (max-width: 500px){
-    &__link {
-      display: none;
-    }
+    // &__link {
+    //   display: none;
+    // }
   }
 }
 </style>

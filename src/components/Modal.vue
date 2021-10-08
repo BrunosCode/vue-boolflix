@@ -159,6 +159,9 @@ export default {
     border: none;
     color: $text-secondary;
     background-color: $darkShadow;
+    &:hover {
+      cursor:pointer;
+    }
   }
   &__imgContainer {
     position: relative;
@@ -201,6 +204,7 @@ export default {
     & {
       left: 0;
       transform: translate(0, -50%);
+      max-height: 100vh;
     }
   }
 }

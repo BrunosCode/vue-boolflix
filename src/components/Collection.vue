@@ -1,14 +1,15 @@
 <template>
-<div v-if="visibleRow.length >= 1" class="c-collection">
+<div class="c-collection">
   <h2 v-if="collection.title" class="c-collection__title">{{collection.title}}</h2>
+  <h3 v-if="visibleRow.length < 1" class="c-collection__title">No match found</h3>
   <div class="l-row l-wrap l-alignCenter c-collection__row">
-    <button @click="slideLeft" v-if="!movieQuery"
+    <button @click="slideLeft" v-if="!movieQuery && filteredList.length > 1"
     class="c-collection__arrow c-collection__arrow--left">
       <font-awesome-icon icon="chevron-left"/>
     </button>
     <Card v-for="(movie, i) in visibleRow" :key="i" :movie="movie" @emit-modal="openModal"
     class="c-collection__card"/>
-    <button @click="slideRight" v-if="!movieQuery"
+    <button @click="slideRight" v-if="!movieQuery && filteredList.length > 1"
     class="c-collection__arrow c-collection__arrow--right">
       <font-awesome-icon icon="chevron-right"/>
     </button>
@@ -140,6 +141,12 @@ export default {
 
   &__title {
     margin-bottom: .75rem;
+  }
+
+  @media screen and (max-width: 600px) {
+    &__row {
+      justify-content: center
+    }
   }
 
   &__arrow {

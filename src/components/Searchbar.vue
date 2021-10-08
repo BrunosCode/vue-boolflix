@@ -1,7 +1,7 @@
 <template>
   <div class="l-row l-alignCenter c-searchbar">
     <input v-model="movieQuery" @keyup.enter="emitQuery"
-    class="c-searchbar__input" 
+    :class="{'h-active': movieQuery}" class="c-searchbar__input" 
     type="text" name="movieQuery" id="movieQuery" placeholder="Search title">
     <font-awesome-icon icon="search" class="c-searchbar__icon"/>
     <button @click="emitQuery"
@@ -44,21 +44,19 @@ export default {
     transition: .5s;
   }
   &:hover &__input,
-  &:focus &__input {
+  &:focus &__input,
+  &__input.h-active {
     background-color: $bg-primary;
     border-color: white;
     color: white;
     width: 12rem;
-    padding: .5rem 2rem;
+    padding: .5rem 3rem;
   }
 
   &__icon {
     position: absolute;
-    left: 0;
-    transition: .5s;
-  }
-  &:hover &__icon {
     left: .5rem;
+    transition: .5s;
   }
 
   &__btn {
