@@ -31,7 +31,7 @@ export default {
   },
   props: {
     movieQuery: String,
-    genreFilter: Number,
+    genreFilter: String,
     collection: Object
   },
   data() {
@@ -44,10 +44,10 @@ export default {
   },
   computed: {
     filteredList: function() {
-      if (this.genreFilter !== -1) {
-        return this.moviesList.filter(movie => movie.genre_ids.includes(this.genreFilter));
-      } else if (this.movieQuery) {
+      if (this.movieQuery) {
         return this.moviesList.filter(movie => movie.media_type !== "person");
+      } else if (this.genreFilter) {
+        return this.moviesList.filter(movie => movie.genre_ids.includes(parseInt(this.genreFilter)));
       } else {
         return this.moviesList;
       }
@@ -75,7 +75,7 @@ export default {
       this.moviesList = [];
       let requestedPage = 1;
       // To avoid empty rows when filtered by genre
-      if (this.genreFilter !== -1) {
+      if (this.genreFilter) {
         requestedPage = 3;
       }
       for(let i = 0; i < requestedPage; i++) {

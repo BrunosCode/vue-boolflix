@@ -10,14 +10,15 @@
           <h2 class="c-main__title">{{currentPage}}</h2>
           <select v-model="genreFilter" 
           class="c-main__filter" name="genre" id="genre">
-            <option value="-1" selected>Select a Genre</option>
+            <option value="" selected disabled>Select a Genre</option>
+            <option value="">All</option>
             <option v-for="(genre, i) in allGenres" :key="i" 
             :value="genre.id">{{genre.name}}</option>
           </select>
         </div>
 
         <Collection v-for="(collection, i) in collections" :key="i" 
-        :movie-query="movieQuery" :collection="collection" :genre-filter="genreFilter"/>
+        :movie-query="movieQuery" :collection="collection" :genre-filter="genreFilterString"/>
       </div>
 
       <!-- Search resutls page -->
@@ -44,7 +45,7 @@ export default {
   data() {
     return {
       movieQuery: "",
-      genreFilter: -1,
+      genreFilter: "",
       allGenres: [],
       pages: pages,
       currentPage: "home",
@@ -59,7 +60,7 @@ export default {
       return currentPage === 'series' || currentPage === 'movies' ;
     },
     generateGenreList: function() {
-      this.genreList = [];
+      this.allGenres = [];
       if (this.filtersAllowed(this.currentPage)) {
         // I didn't want to change all variables names
         let filterType = this.currentPage;
@@ -90,6 +91,7 @@ export default {
     },
     storeCurrentPage: function(currentPage) {
       this.currentPage = currentPage;
+      this.genreFilter = "";
       this.resetQuery();
     },
     resetQuery: function() {
@@ -99,6 +101,9 @@ export default {
   computed: {
     collections: function() {
       return this.pages[this.currentPage];
+    },
+    genreFilterString: function() {
+      return String(this.genreFilter);
     }
   },
   watch: {
