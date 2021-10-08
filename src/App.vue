@@ -51,7 +51,7 @@ export default {
       currentPage: "home",
       searchCollection: {
         title: "",
-        url: "search/multi/"
+        url: "search/multi"
       }
     }
   },
@@ -72,7 +72,7 @@ export default {
         }
 
         axios
-          .get(`https://api.themoviedb.org/3/genre/${filterType}/list?`, {
+          .get(`https://api.themoviedb.org/3/genre/${filterType}/list`, {
             params: {
               api_key: "4e084792fe571911078b5fc34eaab7de",
               language: "en-US",
